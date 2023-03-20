@@ -1,0 +1,24 @@
+{
+  "name": "custom-hybrid-bba",
+  "version": "1.0.0",
+  "description": "custom hybridbooking vendor bali best adventure",
+  "main": "hybridbooking.main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danang-pgds/custom-hybrid-bba.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danang-pgds/custom-hybrid-bba/issues"
+  },
+  "homepage": "https://github.com/danang-pgds/custom-hybrid-bba#readme",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-react-app": "^3.1.2"
+  }
+}
