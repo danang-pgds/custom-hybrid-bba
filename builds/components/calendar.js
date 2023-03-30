@@ -6,29 +6,37 @@ var Calendar = function Calendar(props) {
   return React.createElement(
     "div",
     null,
-    React.createElement(BtnTest, { action: "add", text: "Add" }),
-    React.createElement(BtnTest, { action: "del", text: "delete" }),
-    React.createElement(BtnTest, { action: "get", text: "Fetch" }),
     React.createElement(
       "div",
-      null,
+      { className: "grid grid-cols-12 gap-4" },
       React.createElement(
-        "p",
-        null,
-        "Name : ",
-        dt.name
-      ),
-      React.createElement(
-        "p",
-        null,
-        "Order Date : ",
-        dt.order.date
-      ),
-      React.createElement(
-        "p",
-        null,
-        "Order Item : ",
-        dt.order.name
+        "div",
+        { className: "col-start-2 col-span-10 border rounded-lg shadow-lg mb-5" },
+        React.createElement(BtnTest, { action: "add", text: "Add" }),
+        React.createElement(BtnTest, { action: "del", text: "delete" }),
+        React.createElement(BtnTest, { action: "get", text: "Fetch" }),
+        React.createElement(
+          "div",
+          null,
+          React.createElement(
+            "p",
+            null,
+            "Name : ",
+            dt.name
+          ),
+          React.createElement(
+            "p",
+            null,
+            "Order Date : ",
+            dt.order.date
+          ),
+          React.createElement(
+            "p",
+            null,
+            "Order Item : ",
+            dt.order.name
+          )
+        )
       )
     )
   );
