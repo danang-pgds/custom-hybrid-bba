@@ -5,13 +5,17 @@ const Calendar = (props) => {
   console.log(props.data)
   return (
     <div>
-      <BtnTest action="add" text="Add"/>
-      <BtnTest action="del" text="delete"/>
-      <BtnTest action="get" text="Fetch"/>
-      <div>
-        <p>Name : {dt.name}</p>
-        <p>Order Date : {dt.order.date}</p>
-        <p>Order Item : {dt.order.name}</p>
+      <div className="grid grid-cols-12 gap-4">
+        <div className="col-start-2 col-span-10 border rounded-lg shadow-lg mb-5">
+          <BtnTest action="add" text="Add"/>
+          <BtnTest action="del" text="delete"/>
+          <BtnTest action="get" text="Fetch"/>
+          <div>
+            <p>Name : {dt.name}</p>
+            <p>Order Date : {dt.order.date}</p>
+            <p>Order Item : {dt.order.name}</p>
+          </div>
+        </div>
       </div>
     </div>
   );
