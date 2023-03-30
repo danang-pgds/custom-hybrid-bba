@@ -10,7 +10,7 @@ var style = document.createElement("style");
 style.innerHTML = `
   /* The Modal (background) */
   .hybridbooking-modal {
-    display: none; /* Hidden by default */
+    display: block; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
     left: 0;
@@ -37,6 +37,13 @@ style.innerHTML = `
   }
   
   /* Modal Content */
+  @media only screen and (max-width: 912px) {
+    .hybridbooking-modal-content {
+      width: 100% !important;
+      margin: 0px !important;
+    }
+  }
+
   .hybridbooking-modal-content {
     position: fixed;
     top: 0;
@@ -154,6 +161,10 @@ document.body.appendChild(div);
 var script = document.createElement('script');
 script.src = 'hybridbooking.main.js';
 document.body.appendChild(script);
+// add calendar
+var calendar = document.createElement('script');
+calendar.src = 'components/calendar.js';
+document.body.appendChild(calendar);
 
 // Get the modal
 var modal = document.getElementById("hybridBookingModal");
