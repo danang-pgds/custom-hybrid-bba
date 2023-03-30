@@ -6,17 +6,58 @@ const Calendar = (props) => {
   return (
     <div>
       <div className="grid grid-cols-12 gap-4">
-        <div className="col-start-2 col-span-10 border rounded-lg shadow-lg mb-5">
-          <BtnTest action="add" text="Add"/>
-          <BtnTest action="del" text="delete"/>
-          <BtnTest action="get" text="Fetch"/>
-          <div>
-            <p>Name : {dt.name}</p>
-            <p>Order Date : {dt.order.date}</p>
-            <p>Order Item : {dt.order.name}</p>
+        <div className="flex-col col-start-2 col-span-10 border rounded-lg shadow-lg mb-5">
+          <div className="flex justify-center space-x-4 my-5 items-center">
+            <ButtonPrevCalendar />
+            <div className="text-lg font-medium">February 2023</div>
+            <ButtonNextCalendar />
+          </div>
+          <div className="flex justify-center">
+            <LabelDays />
+          </div>
+          <div className="flex justify-center">
+            <LabelDates />
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+const ButtonNextCalendar = ()=>{
+  return (
+    <div className="w-8 h-8 bg-gray-200 hover:bg-red-500 rounded-full text-lg text-white flex cursor-pointer">
+      <span className="text-center text-white w-full">{'>'}</span>
+    </div>
+  );
+}
+
+const ButtonPrevCalendar = ()=>{
+  return (
+    <div className="w-8 h-8 bg-gray-200 hover:bg-red-500 rounded-full text-lg text-white flex cursor-pointer">
+      <span className="text-center text-white w-full">{'<'}</span>
+    </div>
+  );
+}
+
+const LabelDays = ()=>{
+  const days = ['Mo','Tu','We','Th','Fr','Sa','Su',];
+  return (
+    <div className="grid grid-cols-7 gap-x-1 md:gap-x-5 w-11/12 mb-1">
+      {days.map((day,key)=>{
+        return <div className="bg-red-500 py-1.5 md:py-2 w-auto text-white rounded-xl text-center" key={key}>{day}</div>
+      })}
+    </div>
+  );
+}
+
+const LabelDates = ()=>{
+  const dates = Array.from(Array(31));// generate dates for slashing purpose
+  return (
+    <div className="grid grid-cols-7 gap-x-1 md:gap-x-5 w-11/12">
+      {dates.map((date,key)=>{
+        return <div className="py-2 md:py-3 w-auto text-red-500 border rounded-xl text-center my-1 hover:cursor-pointer" key={key}>{key}</div>
+      })}
     </div>
   );
 }
