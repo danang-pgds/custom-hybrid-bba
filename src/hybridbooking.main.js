@@ -60,7 +60,9 @@ const ModalBody = (props) => {
   // props.data = "test data";
   var data = {name:'danang', order: {name:'Hote a',date:'29-03-2023'}};
   return (
-    <Calendar data={data}/>
+    <div className="h-screen overflow-y-auto">
+      <Calendar data={data}/>
+    </div>
   );
 }
 
