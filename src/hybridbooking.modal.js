@@ -1,3 +1,4 @@
+'use strict';
 // document.body.innerHTML += '<div class="hybridbooking"></div>';
 //Create the element using the createElement method.
 // var btnOpen = document.createElement("button");
@@ -159,12 +160,16 @@ document.body.appendChild(div);
 
 // add script element
 var script = document.createElement('script');
-script.src = 'hybridbooking.main.js';
+script.src = 'builds/hybridbooking.main.js';
 document.body.appendChild(script);
 // add calendar
 var calendar = document.createElement('script');
-calendar.src = 'components/calendar.js';
+calendar.src = 'builds/components/calendar.js';
 document.body.appendChild(calendar);
+// add crypto
+var mcrypto = document.createElement('script');
+mcrypto.src = 'builds/components/mcrypto.js';
+document.body.appendChild(mcrypto);
 
 // Get the modal
 var modal = document.getElementById("hybridBookingModal");

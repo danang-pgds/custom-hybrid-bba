@@ -1,3 +1,5 @@
+'use strict';
+
 const Calendar = (props) => {
   let dt = props.data;
   console.log(props.data)
