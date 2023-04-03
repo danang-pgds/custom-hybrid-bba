@@ -84,16 +84,16 @@ const ModalFooter = () => {
 const App = () => {
   const data = {};
   // Define the string
-  const string = JSON.stringify({name:'danang',saldo:1000000000});
+  // const string = JSON.stringify({name:'danang',saldo:1000000000});
 
   // Encode the String
-  console.log('encodedString');
-  const encodedString = mHash(string);
-  console.log(encodedString); // Outputs: "SGVsbG8gV29ybGQh"
+  // console.log('encodedString');
+  // const encodedString = mHash(string);
+  // console.log(encodedString); // Outputs: "SGVsbG8gV29ybGQh"
   // Decode the String
-  console.log('decodedString');
-  const decodedString = mDecode(encodedString);
-  console.log(JSON.parse(decodedString)); // Outputs: "Hello World!"
+  // console.log('decodedString');
+  // const decodedString = mDecode(encodedString);
+  // console.log(JSON.parse(decodedString)); // Outputs: "Hello World!"
   
   
   return (
