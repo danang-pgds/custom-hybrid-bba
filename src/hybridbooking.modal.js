@@ -6,6 +6,20 @@
 // btnOpen.innerHTML = 'Open Modal';
 // document.body.appendChild(btnOpen);
 
+function getScriptJS(link) {
+  let x = document.createElement("script");
+  x.setAttribute("type", "text/javascript");
+  x.setAttribute("src", link);
+  document.head.appendChild(x);
+}
+
+function getScriptStyle(link) {
+  let x = document.createElement("link");
+  x.setAttribute("rel", "stylesheet");
+  x.setAttribute("type", "text/css");
+  x.setAttribute("href", link);
+  document.head.appendChild(x);
+}
 // create style element
 var style = document.createElement("style");
 style.innerHTML = `
@@ -152,24 +166,71 @@ div.innerHTML = `
   <div class="hybridbooking-modal-content slideIn" id="hybridbooking-modal-content">
     <span class="hybridbooking-close">&times;</span>
     </br>
-    <div id="hybridbooking"></div>
+    <div id="hybridbooking">
+      <div class="hybridbooking-modal-header">
+        <div class="w-full py-6">
+          <div class="flex">
+            <div id="step1">
+              <div class="w-1/4">
+                <div class="relative mb-2">
+                  <div class="w-8 h-8 mx-auto bg-red-500 rounded-full text-md text-white flex items-center">
+                    <span class="text-center text-white w-full">1</span>
+                  </div>
+                </div>
+                <div class="text-ms text-center">Products</div>
+              </div>
+            </div>
+            // step 2
+            <div id="step2">
+              <div class="w-1/4">
+                <div class="relative mb-2">
+                  <div class="absolute flex align-center items-center align-middle content-center" style={lineStep}>
+                    <div class="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
+                      <div class="w-0 bg-red-300 h-1 rounded" style={lineActive}></div>
+                    </div>
+                  </div>
+
+                  <div class={classIcon}>
+                    <span class="text-center w-full text-white">{number}</span>
+                  </div>
+                </div>
+                <div class="text-ms text-center">{text}</div>
+              </div>
+            </div>
+            // step 3
+            <div id="step3"></div>
+            // step 4
+            <div id="step4"></div>
+            <Step234 activeLine={false} number="2" text="Detail & Contact"/>
+            <Step234 activeLine={false} number="3" text="Payment"/>
+            <Step234 activeLine={false} number="4" text="Finish"/>
+          </div>
+        </div>
+      </div>
+      // modal body
+      <div class="h-screen overflow-y-auto">
+        // <Calendar data={data}/>
+      </div>
+    </div>
   </div>
 `;
 //Finally, append the element to the HTML body
 document.body.appendChild(div);
 
 // add script element
-var script = document.createElement('script');
-script.src = 'builds/hybridbooking.main.js';
-document.body.appendChild(script);
+getScriptJS('src/hybridbooking.main.js')
+// var script = document.createElement('script');
+// script.src = 'src/hybridbooking.main.js';
+// document.body.appendChild(script);
 // add calendar
-var calendar = document.createElement('script');
-calendar.src = 'builds/components/calendar.js';
-document.body.appendChild(calendar);
+// getScriptJS('src/components/calendar.js')
+// var calendar = document.createElement('script');
+// calendar.src = 'src/components/calendar.js';
+// document.body.appendChild(calendar);
 // add crypto
-var mcrypto = document.createElement('script');
-mcrypto.src = 'builds/components/mcrypto.js';
-document.body.appendChild(mcrypto);
+// var mcrypto = document.createElement('script');
+// mcrypto.src = 'builds/components/mcrypto.js';
+// document.body.appendChild(mcrypto);
 
 // Get the modal
 var modal = document.getElementById("hybridBookingModal");
