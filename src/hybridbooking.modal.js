@@ -157,19 +157,28 @@ div.innerHTML = `
 `;
 //Finally, append the element to the HTML body
 document.body.appendChild(div);
-
+// teach the browser where to locate the vue import by using Import Maps:
+var vueEsModule = document.createElement('script');
+vueEsModule.type = 'importmap'
+vueEsModule.innerHTML = `{
+  "imports": {
+    "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+  }
+}`;
+document.body.appendChild(vueEsModule);
 // add script element
 var script = document.createElement('script');
-script.src = 'builds/hybridbooking.main.js';
+script.type = 'module'
+script.src = 'src/hybridbooking.main.js';
 document.body.appendChild(script);
 // add calendar
-var calendar = document.createElement('script');
-calendar.src = 'builds/components/calendar.js';
-document.body.appendChild(calendar);
+// var calendar = document.createElement('script');
+// calendar.src = 'builds/components/calendar.js';
+// document.body.appendChild(calendar);
 // add crypto
-var mcrypto = document.createElement('script');
-mcrypto.src = 'builds/components/mcrypto.js';
-document.body.appendChild(mcrypto);
+// var mcrypto = document.createElement('script');
+// mcrypto.src = 'builds/components/mcrypto.js';
+// document.body.appendChild(mcrypto);
 
 // Get the modal
 var modal = document.getElementById("hybridBookingModal");

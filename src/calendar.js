@@ -7,7 +7,8 @@ var y = date.getFullYear();
 
 var dd = d < 10 ? '0' + d:d;
 var mm = m+1 < 10 ? '0' + (m+1):m+1;
-var monthLong = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const monthLong = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const daysShort = ['Mo','Tu','We','Th','Fr','Sa','Su'];
 
 var currentDay = 0;
 var currentYear = y;
@@ -15,89 +16,74 @@ var currentMonth = m;
 var currentDate = 0;
 var daysInMonth = 0;
 
-const Calendar = (props) => {
-  console.log(currentMonth)
-  let days = ShowDay();
-  // let dt = props.data;
-  console.log('reloaded')
-  return (
-    <div>
-      <div className="grid grid-cols-12 gap-4">
-        <div className="flex-col col-start-2 col-span-10 border rounded-lg shadow-lg mb-5">
-          <div className="flex justify-center space-x-4 my-5 items-center">
-            <ButtonPrevCalendar />
-            {/* <div className="text-lg font-medium">{m}</div> */}
-            <div className="text-lg font-medium">{dd+' '+monthLong[Number(mm)-1]+' '+y}</div>
-            <ButtonNextCalendar date={date}/>
-          </div>
-          <div className="flex justify-center">
-            <LabelDays />
-          </div>
-          <div className="flex justify-center">
-            <LabelDates dates={days}/>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-const ButtonNextCalendar = ({date})=>{
+const ButtonNextCalendar = ()=>{
   log('btn next')
-  // log("currentMonth "+currentMonth)
-  // log("currentYear "+currentYear)
-  const press = ()=>{
-    currentMonth += 1;
-    if(currentMonth > 12) {currentMonth = 1;currentYear++}
-    // log(currentMonth)
-    // log(currentYear)
-    date = new Date(currentYear+'-'+currentMonth+'-'+d)
-    log(date)
-    Calendar()
-    // ShowDay(currentMonth,currentYear)
-  }
-  return (
-    <div className="w-8 h-8 bg-gray-200 hover:bg-red-500 rounded-full text-lg text-white flex cursor-pointer" onClick={()=>{press()}}>
-      <span className="text-center text-white w-full">{'>'}</span>
+  return `
+    <div class="w-8 h-8 bg-gray-200 hover:bg-red-500 rounded-full text-lg text-white flex cursor-pointer" @:click="press()">
+      <span class="text-center text-white w-full"> > </span>
     </div>
-  );
+  `
 }
 
 const ButtonPrevCalendar = ()=>{
   log('btn prev')
   let tmp_month = currentMonth == 0 ? 11 : parseInt(currentMonth) - 1;
   let tmp_year = currentMonth == 0 ? parseInt(currentYear) - 1 : currentYear;
-  return (
-    <div className="w-8 h-8 bg-gray-200 hover:bg-red-500 rounded-full text-lg text-white flex cursor-pointer">
-      <span className="text-center text-white w-full">{'<'}</span>
+  return `
+    <div class="w-8 h-8 bg-gray-200 hover:bg-red-500 rounded-full text-lg text-white flex cursor-pointer">
+      <span class="text-center text-white w-full"> &lt; </span>
     </div>
-  );
+  `
 }
 
 const LabelDays = ()=>{
   log('label days')
-  const days = ['Mo','Tu','We','Th','Fr','Sa','Su'];
-  return (
-    <div className="grid grid-cols-7 gap-x-1 md:gap-x-5 w-11/12 mb-1">
-      {days.map((day,key)=>{
-        return <div className="bg-red-500 py-1.5 md:py-2 w-auto text-white rounded-xl text-center" key={key}>{day}</div>
-      })}
+  let day = ''
+  daysShort.map((val)=> day += `<div class="bg-red-500 py-1.5 md:py-2 w-auto text-white rounded-xl text-center">${val}</div>`)
+  return `
+    <div class="grid grid-cols-7 gap-x-1 md:gap-x-5 w-11/12 mb-1">
+      ${day}
     </div>
-  );
+  `
 }
 
-const LabelDates = (props)=>{
+const LabelDates = (dates)=>{
   log('label dates')
-  const dates = props.dates;
+  // const dates = props.dates;
   // console.log(dates)
   // const dates = Array.from(Array(31));// generate dates for slashing purpose
-  return (
-    <div className="grid grid-cols-7 gap-x-1 md:gap-x-5 w-11/12">
-      {dates.map((e,key)=>{
-        return <div className="py-2 md:py-3 w-auto text-red-500 border rounded-xl text-center my-1 hover:cursor-pointer" key={key}>{e.date}</div>
-      })}
+  let date = '';
+  dates.map((e,key)=> date += `<div class="py-2 md:py-3 w-auto text-red-500 border rounded-xl text-center my-1 hover:cursor-pointer">${e.date == null ? '':e.date}</div>`)
+  return `
+    <div class="grid grid-cols-7 gap-x-1 md:gap-x-5 w-11/12">
+      ${date}
     </div>
-  );
+  `
+}
+
+const Init = () => {
+  console.log(currentMonth)
+  let days = ShowDay();
+  console.log('reloaded')
+  return `
+    <div>
+      <div class="grid grid-cols-12 gap-4">
+        <div class="flex-col col-start-2 col-span-10 border rounded-lg shadow-lg mb-5">
+          <div class="flex justify-center space-x-4 my-5 items-center">
+            ${ButtonPrevCalendar()}
+            <div class="text-lg font-medium">${dd+' '+monthLong[Number(mm)-1]+' '+y} {{title}}</div>
+            ${ButtonNextCalendar()}
+          </div>
+          <div class="flex justify-center">
+            ${LabelDays()}
+          </div>
+          <div class="flex justify-center">
+            ${LabelDates(days)}
+          </div>
+        </div>
+      </div>
+    </div>
+  `
 }
 /**
 * calculate number of days in a particular month
@@ -242,13 +228,37 @@ const BtnTest = (props)=>{
     if (props.action == 'del') return del();
     if (props.action == 'get') return get();
   }
-  return (
-    <button onClick={() => getAction()} className="group m-5 rounded-2xl h-12 w-48 bg-green-500 font-bold text-lg text-white relative overflow-hidden">
+  return `
+    <button onClick={() => getAction()} class="group m-5 rounded-2xl h-12 w-48 bg-green-500 font-bold text-lg text-white relative overflow-hidden">
         {props.text}
-        <div className="absolute duration-300 inset-0 w-full h-full transition-all scale-0 group-hover:scale-100 group-hover:bg-white/30 rounded-2xl">
+        <div class="absolute duration-300 inset-0 w-full h-full transition-all scale-0 group-hover:scale-100 group-hover:bg-white/30 rounded-2xl">
         </div>
     </button>
-  );
+  `
 }
 
 const log = (text)=> console.log(text)
+
+export default {
+  props: ['title'],
+  data() {
+    return { count: 0 }
+  },
+  mounted: (dt)=>{
+    // console.log(dt)
+  },
+  methods: {
+    press: function () {
+      this.$emit('inCount',1)
+      // log(this.title)
+      // this.title += ' is my name';
+      currentMonth += 1;
+      if(currentMonth > 12) {currentMonth = 1;currentYear++}
+      log(currentMonth)
+      log(currentYear)
+      date = new Date(currentYear+'-'+currentMonth+'-'+d)
+      log(date)
+    }
+  },
+  template: Init()
+}
