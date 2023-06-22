@@ -9,4 +9,5 @@ const app = createApp(App);
 app.component('Calendar', Calendar)
 app.component('Step1', Step1)
 app.component('Step234', Step234)
+// app.config.globalProperties.msg = 'hello'
 app.mount('#hybridbooking')
