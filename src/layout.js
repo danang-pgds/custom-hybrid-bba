@@ -1,11 +1,11 @@
 export default {
   data() {
     return { 
-      // step:{
-        step2:false,
-        step3:false,
+      step:{
+        step2:true,
+        step3:true,
         step4:false,
-      // },
+      },
       title: 'danang',
       count:0
     }
@@ -21,9 +21,9 @@ export default {
     <div class="w-full py-6">
       <div class="flex">
         <Step1 />
-        <Step234 :activeLine="step2" number="2" text="Detail & Contact" test="width:100%"/>
-        <Step234 :activeLine="step3" number="3" text="Payment" />
-        <Step234 :activeLine="step4" number="4" text="Finish" />
+        <Step234 :activeLine="step.step2" number="2" text="Detail & Contact"/>
+        <Step234 :activeLine="step.step3" number="3" text="Payment" />
+        <Step234 :activeLine="step.step4" number="4" text="Finish" />
       </div>
     </div>
   </div>
