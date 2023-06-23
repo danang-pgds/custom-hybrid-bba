@@ -31,11 +31,9 @@ export default {
     this.m = date.getMonth();
     this.y = date.getFullYear();
     this.dd = this.d < 10 ? '0' + this.d:this.d;
-    this.mm = this.m+1 < 10 ? '0' + (this.m+1):this.m+1,
-    this.currentMonth = Number(this.mm);
+    this.mm = this.m < 10 ? '0' + (this.m):this.m,
+    this.currentMonth = Number(this.m);
     this.currentYear = this.y;
-    
-    console.log(this.date)
   },
   mounted(){
     console.log('mounted')
@@ -51,17 +49,14 @@ export default {
   computed: {
     // compute caching https://vuejs.org/guide/essentials/computed.html#computed-properties
     LabelDays(){
-      console.log('label days')
       let day = '';
       this.daysShort.map((val)=> day += `<div class="bg-red-500 py-1.5 md:py-2 w-auto text-white rounded-xl text-center">${val}</div>`)
       return day;
     },
     LabelDates(){
-      console.log('label dates')
       // const dates = Array.from(Array(31));// generate dates for slashing purpose
-      this.dates = this.ShowDay();
       let date = '';
-      this.dates.map((e,key)=> date += `<div class="py-2 md:py-3 w-auto text-red-500 border rounded-xl text-center my-1 hover:cursor-pointer">${e.date == null ? '':e.date}</div>`)
+      this.ShowDay().map((e,key)=> date += `<div class="py-2 md:py-3 w-auto text-red-500 border rounded-xl text-center my-1 hover:cursor-pointer">${e.date == null ? '':e.date}</div>`)
       return date;
     },
   },
@@ -69,14 +64,14 @@ export default {
     emitExample(){this.$emit('inCount',1)},
     nextMonth(){
       this.currentMonth += 1;
-      if(this.currentMonth > 12) {this.currentMonth = 1;this.currentYear++}
-      console.log(this.currentMonth)
+      if(this.currentMonth > 11) {this.currentMonth = 1;this.currentYear++}
+    },
+    prevMonth(){
+      this.currentMonth -= 1;
+      if(this.currentMonth < 0) {this.currentMonth = 11;this.currentYear--}
     },
     ShowDay(){
-      console.log('ShowDay')
-      console.log(this.currentMonth)
-      console.log(this.currentYear)
-      let weeksInMonth = this.WeeksInMonth(this.currentMonth, this.currentYear);
+      let weeksInMonth = this.WeeksInMonth();
       let content = [];
       // Create weeks in a month
       this.currentDay = 0; // reset
@@ -90,29 +85,17 @@ export default {
       console.log(content)
       return content;
     },
-    WeeksInMonth(postMonth, postYear){// calculate number of weeks in a particular month
-      console.log('WeeksInMonth')
-      console.log(postMonth)
-      console.log(postYear)
+    WeeksInMonth(){// calculate number of weeks in a particular month
       // find number of days in this month
-      this.daysInMonth = this.DaysInMonth(postMonth, postYear);
+      this.daysInMonth = new Date(this.currentYear, this.currentMonth +1, 0).getDate();
       let numOfweeks = Math.floor((this.daysInMonth % 7 == 0 ? 0 : 1) + (this.daysInMonth / 7));
-      let monthStartDay = new Date(postYear, postMonth, 1).getDay();
-      let monthEndingDay = new Date(postYear, postMonth, this.daysInMonth).getDay();
-      console.log('monthStartDay')
-      console.log(this.daysInMonth)
-      console.log(numOfweeks)
-      console.log(monthStartDay)
-      console.log(monthEndingDay)
+      let monthStartDay = new Date(this.currentYear, this.currentMonth, 1).getDay();
+      let monthEndingDay = new Date(this.currentYear, this.currentMonth, this.daysInMonth).getDay();
+      
       if ((monthEndingDay < monthStartDay) && (monthEndingDay != 0)) numOfweeks++;
       if (monthStartDay == 0) numOfweeks++;
+      
       return numOfweeks;
-    },
-    DaysInMonth(postMonth, postYear){ //calculate number of days in a particular month
-      let lastDay = new Date(postYear, postMonth, 0);
-      // console.log('lastDay')
-      // console.log(lastDay.getDate())
-      return lastDay.getDate();
     },
     ShowDayContents(cellNumber){
       let cellContent = null;
@@ -124,6 +107,7 @@ export default {
       if (this.currentDay == 0) {
         console.log('currentDay')
         console.log(this.currentDay)
+        console.log(this.currentMonth)
         let firstDayOfTheWeek = new Date(this.currentYear, this.currentMonth, 1).getDay();
         console.log('firstDayOfTheWeek '+firstDayOfTheWeek)
         console.log('cellNumber')
@@ -134,7 +118,7 @@ export default {
       if ((this.currentDay != 0) && (this.currentDay <= this.daysInMonth)) {
         this.currentDate = this.currentYear + '-' + this.currentMonth + '-' + this.currentDay;
         let dd = this.currentDay;
-        let mm = this.currentMonth + 1;
+        let mm = this.currentMonth;
         if (mm < 10) {
           mm = '0' + mm;
         }
@@ -188,14 +172,6 @@ export default {
       };
     
       return finalDisplay;
-    },
-    ButtonNextCalendar(){
-      console.log('btn next clicked')
-    },
-    ButtonPrevCalendar(){
-      log('btn prev clicked')
-      let tmp_month = this.currentMonth == 0 ? 11 : parseInt(this.currentMonth) - 1;
-      let tmp_year = this.currentMonth == 0 ? parseInt(this.currentYear) - 1 : this.currentYear;
     }
   },
   template: `
@@ -203,10 +179,10 @@ export default {
     <div class="grid grid-cols-12 gap-4">
       <div class="flex-col col-start-2 col-span-10 border rounded-lg shadow-lg mb-5">
         <div class="flex justify-center space-x-4 my-5 items-center">
-          <div class="w-8 h-8 bg-gray-200 hover:bg-red-500 rounded-full text-lg text-white flex cursor-pointer">
+          <div class="w-8 h-8 bg-gray-200 hover:bg-red-500 rounded-full text-lg text-white flex cursor-pointer" @:click="prevMonth()">
             <span class="text-center text-white w-full"> &lt; </span>
           </div>
-          <div class="text-lg font-medium">{{dd}} {{monthLong[Number(currentMonth-1)]}} {{y}}</div>
+          <div class="text-lg font-medium">{{monthLong[currentMonth]}} {{currentYear}}</div>
           <div class="w-8 h-8 bg-gray-200 hover:bg-red-500 rounded-full text-lg text-white flex cursor-pointer" @:click="nextMonth()">
             <span class="text-center text-white w-full"> > </span>
           </div>
