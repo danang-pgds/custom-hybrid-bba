@@ -5,15 +5,11 @@ export default {
   props: ['title'],
   data() {
     return { 
-      dates: '',
-      date: '',
       d: '',
       m: '',
       y: '',
       monthLong: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
       daysShort: ['Mo','Tu','We','Th','Fr','Sa','Su'],
-      dd: '',
-      mm: '',
       currentDay: 0,
       currentYear: 0,
       currentMonth: 0,
@@ -26,25 +22,19 @@ export default {
     console.log(new Date().getMilliseconds())
 
     let date = new Date();
-    this.date = date;
     this.d = date.getDate();
     this.m = date.getMonth();
     this.y = date.getFullYear();
-    this.dd = this.d < 10 ? '0' + this.d:this.d;
-    this.mm = this.m < 10 ? '0' + (this.m):this.m,
     this.currentMonth = Number(this.m);
     this.currentYear = this.y;
   },
   mounted(){
-    console.log('mounted')
     nextTick(()=>{
       console.log('inside nextick')
       console.log(new Date().getMilliseconds())
-      // this.nextMonth()
     })
-    console.log('mounted 1')
+    console.log('mounted')
     console.log(new Date().getMilliseconds())
-    // this.d < 10 ? '0' + this.d:this.d;
   },
   computed: {
     // compute caching https://vuejs.org/guide/essentials/computed.html#computed-properties
@@ -81,8 +71,6 @@ export default {
           content.push(this.ShowDayContents(i * 7 + j));
         }
       }
-      console.log('content')
-      console.log(content)
       return content;
     },
     WeeksInMonth(){// calculate number of weeks in a particular month
@@ -105,13 +93,8 @@ export default {
       let allotment = '';
       // log('currentDay '+this.currentDay)
       if (this.currentDay == 0) {
-        console.log('currentDay')
-        console.log(this.currentDay)
-        console.log(this.currentMonth)
         let firstDayOfTheWeek = new Date(this.currentYear, this.currentMonth, 1).getDay();
-        console.log('firstDayOfTheWeek '+firstDayOfTheWeek)
-        console.log('cellNumber')
-        console.log(cellNumber)
+        
         if (firstDayOfTheWeek == 0) firstDayOfTheWeek = 7;
         if (cellNumber == firstDayOfTheWeek) this.currentDay = 1;
       }
