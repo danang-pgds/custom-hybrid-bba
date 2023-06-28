@@ -15,6 +15,7 @@ export default {
       currentMonth: 0,
       currentDate: 0,
       daysInMonth: 0,
+      dates:[]
     }
   },
   created(){
@@ -44,17 +45,23 @@ export default {
       return day;
     },
     LabelDates(){
-      // const dates = Array.from(Array(31));// generate dates for slashing purpose
-      let date = '';
-      this.ShowDay().map((e,key)=> date += `<div class="py-2 md:py-3 w-auto text-red-500 border rounded-xl text-center my-1 hover:cursor-pointer">${e.date == null ? '':e.date}</div>`)
-      return date;
-    },
+      console.log('computed label dates')
+      console.log(new Date().getMilliseconds())
+      // const genDates = Array.from(Array(31));// generate dates for slashing purpose
+      this.dates = [] // reset
+      this.ShowDay().map((e)=> this.dates.push(e.date))
+      return this.dates;
+    }
   },
   methods: {
     emitExample(){this.$emit('inCount',1)},
+    clickDate(v){
+      console.log({date:`${v}-${this.currentMonth}-${this.currentYear}`})
+    },
     nextMonth(){
+      this.$emit('inCount',1)
       this.currentMonth += 1;
-      if(this.currentMonth > 11) {this.currentMonth = 1;this.currentYear++}
+      if(this.currentMonth > 11) {this.currentMonth = 0;this.currentYear++}
     },
     prevMonth(){
       this.currentMonth -= 1;
@@ -162,11 +169,11 @@ export default {
     <div class="grid grid-cols-12 gap-4">
       <div class="flex-col col-start-2 col-span-10 border rounded-lg shadow-lg mb-5">
         <div class="flex justify-center space-x-4 my-5 items-center">
-          <div class="w-8 h-8 bg-gray-200 hover:bg-red-500 rounded-full text-lg text-white flex cursor-pointer" @:click="prevMonth()">
+          <div class="w-8 h-8 bg-gray-200 hover:bg-red-500 rounded-full text-lg text-white flex cursor-pointer" @:click="prevMonth">
             <span class="text-center text-white w-full"> &lt; </span>
           </div>
           <div class="text-lg font-medium">{{monthLong[currentMonth]}} {{currentYear}}</div>
-          <div class="w-8 h-8 bg-gray-200 hover:bg-red-500 rounded-full text-lg text-white flex cursor-pointer" @:click="nextMonth()">
+          <div class="w-8 h-8 bg-gray-200 hover:bg-red-500 rounded-full text-lg text-white flex cursor-pointer" @:click="nextMonth">
             <span class="text-center text-white w-full"> > </span>
           </div>
         </div>
@@ -174,7 +181,9 @@ export default {
           <div class="grid grid-cols-7 gap-x-1 md:gap-x-5 w-11/12 mb-1" v-html="LabelDays"></div>
         </div>
         <div class="flex justify-center">
-          <div class="grid grid-cols-7 gap-x-1 md:gap-x-5 w-11/12" v-html="LabelDates"></div>
+          <div class="grid grid-cols-7 gap-x-1 md:gap-x-5 w-11/12">
+            <div class="py-2 md:py-3 w-auto text-red-500 border rounded-xl text-center my-1 hover:cursor-pointer" @:click="clickDate(date)" v-for="date in LabelDates">{{date == null ? '':date}}</div>
+          </div>
         </div>
       </div>
     </div>
