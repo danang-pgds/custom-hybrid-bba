@@ -1,3 +1,4 @@
+<script >
 export default {
   data() {
     return { 
@@ -13,7 +14,7 @@ export default {
     }
   },
   mounted(){
-    // this.fetchData()
+    this.fetchData()
   },
   methods: {
     increaseCount(n) {
@@ -21,8 +22,8 @@ export default {
     },
     async fetchData() {
       // const response = await (await fetch('https://bes.hybridbooking.com/extranet/my_test_controller/checkBookingDOKU/51687835809?manual')).json();
-      const response = await (await fetch('https://api.github.com/repos/vuejs/core/commits?per_page=3&sha=main')).json();
-      this.data = response;
+      const response = await fetch('https://api.github.com/repos/vuejs/core/commits?per_page=3&sha=main');
+      this.data = await response.json();
       this.data.forEach(element => {
         console.log(element)
         this.authors = element.author;
@@ -32,8 +33,10 @@ export default {
       console.log(this.authors)
       // console.log(this.data[0].sha)
     }
-  },
-  template: `
+  }
+}
+</script>
+<template>
   <div class="hybridbooking-modal-header">
     <div class="w-full py-6">
       <div class="flex">
@@ -49,5 +52,4 @@ export default {
     {{count}}
     {{authors.login}}
   </div>
-  `
-}
+</template>

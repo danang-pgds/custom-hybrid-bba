@@ -1,5 +1,4 @@
-export default {
-  template: `
+<template>
   <div class="w-1/4">
     <div class="relative mb-2">
       <div class="w-8 h-8 mx-auto bg-red-500 rounded-full text-md text-white flex items-center">
@@ -8,5 +7,4 @@ export default {
     </div>
     <div class="text-ms text-center">Products</div>
   </div>
-  `
-}
+</template>

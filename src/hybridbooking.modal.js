@@ -158,19 +158,19 @@ div.innerHTML = `
 //Finally, append the element to the HTML body
 document.body.appendChild(div);
 // teach the browser where to locate the vue import by using Import Maps:
-var vueEsModule = document.createElement('script');
-vueEsModule.type = 'importmap'
-vueEsModule.innerHTML = `{
-  "imports": {
-    "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
-  }
-}`;
-document.body.appendChild(vueEsModule);
+// var vueEsModule = document.createElement('script');
+// vueEsModule.type = 'importmap'
+// vueEsModule.innerHTML = `{
+//   "imports": {
+//     "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+//   }
+// }`;
+// document.body.appendChild(vueEsModule);
 // add script element
-var script = document.createElement('script');
-script.type = 'module'
-script.src = 'src/hybridbooking.main.js';
-document.body.appendChild(script);
+// var script = document.createElement('script');
+// script.type = 'module'
+// script.src = 'src/hybridbooking.main.js';
+// document.body.appendChild(script);
 // add calendar
 // var calendar = document.createElement('script');
 // calendar.src = 'builds/components/calendar.js';
